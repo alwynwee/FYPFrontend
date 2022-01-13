@@ -62,8 +62,8 @@ export default function MainContainer(){
 
             <Tab.Screen name ={homeName} component={InventoryScreen}/>
             <Tab.Screen name ={cartName} component={CartScreen}/>
-            <Tab.Screen name ={recommenderName} component={RecommenderScreen}/>
             <Tab.Screen name ={searchName} component={SearchScreen}/>
+            <Tab.Screen name ={recommenderName} component={RecommenderScreen}/>
             <Tab.Screen name ={settingsName} component={SettingsScreen}/>
 
             </Tab.Navigator>
