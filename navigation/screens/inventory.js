@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground,Image, Dimensions, Button } from 'react-native';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Card from '../../src/Inventoryitems';
-import RecipeScreen from './recipe';
+import AppLoading from 'expo-app-loading';
+import * as Font from 'expo-font';
 
 export default function InventoryScreen({navigation}) {
   
@@ -94,6 +95,27 @@ export default function InventoryScreen({navigation}) {
     }
   ]
 
+  //FontLoader
+  const fetchFont = () => {
+    return Font.loadAsync({      
+    'Caveat': require('../../assets/fonts/Caveat-Bold.ttf'),
+    })
+  }
+
+  const [fontLoaded, setfontLoaded] = useState(false);
+  if(!fontLoaded){
+    return(
+      <AppLoading
+        startAsync={fetchFont}
+        onError={()=> console.log("ERROR")}
+        onFinish={()=>{
+          setfontLoaded(true);
+        }}
+        />
+    )
+  }
+
+  //Render Inventory
   return (
     <View style={styles.container}>
         <ImageBackground source={require('../../assets/images/photo1.png')} style={styles.bgImage}>
@@ -104,7 +126,9 @@ export default function InventoryScreen({navigation}) {
               keyExtractor={(inventorylist) => inventorylist.p_code.toString()}
             />
             <View style={styles.recipeButton}>
-              <Button color="#FF880D" title="Recipe"></Button>
+              <TouchableOpacity color="#FF880D" onPress={()=>navigation.navigate('Recipe')}>
+                <Text style={styles.recipeText}> Check Recipe </Text>
+              </TouchableOpacity>
             </View>
         </ImageBackground>
     </View>
@@ -116,15 +140,15 @@ const Deviceheight = Math.round(Dimensions.get('window').height)
 const styles = StyleSheet.create({
   recipeText:{
     fontSize: 40,
-    fontWeight: "Bolder",
+    fontFamily: 'Caveat',
   },
   recipeButton:{
     backgroundColor: "#FF880D",
     height: Deviceheight / 10,
     width: Devicewidth / 1.1 ,
     top: Devicewidth / 2.5,
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
     justifyContent: "center",
     alignItems: "center",    
   },
@@ -143,8 +167,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     padding: 30,
     bottom: Devicewidth / 1.87 ,
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     backgroundColor: 'rgba(250, 160, 78, 0.8)'
   },
   text:{

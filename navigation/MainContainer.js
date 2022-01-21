@@ -4,9 +4,11 @@ import { View, Text} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator } from "@react-navigation/stack";
 
 // Screens
 import CartScreen from './screens/cart';
+import RecipeScreen from './screens/recipe'; 
 import InventoryScreen from './screens/inventory';
 import RecommenderScreen from './screens/recommender';
 import SearchScreen from './screens/search';
@@ -19,6 +21,17 @@ const recommenderName = 'Recommander';
 const searchName = 'Search';
 const recipeName = 'Recipe';
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+
+const MainStackNavigator = () => {
+    return (
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Home" component={InventoryScreen} />
+        <Stack.Screen name="Recipe" component={RecipeScreen} />
+      </Stack.Navigator>
+    );
+  }
 
 export default function MainContainer(){
     return(
@@ -60,7 +73,7 @@ export default function MainContainer(){
             }}
             >
 
-            <Tab.Screen name ={homeName} component={InventoryScreen}/>
+            <Tab.Screen name ={homeName} component={MainStackNavigator}/>
             <Tab.Screen name ={cartName} component={CartScreen}/>
             <Tab.Screen name ={searchName} component={SearchScreen}/>
             <Tab.Screen name ={recommenderName} component={RecommenderScreen}/>

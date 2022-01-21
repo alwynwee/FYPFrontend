@@ -33,8 +33,6 @@ const inventoryItems = ({info}) => {
   
     let expiryProgress = ((passedDays / diffDays) * 100) < Devicewidth / 2.3 ? ((passedDays / diffDays) * 100) : Devicewidth / 2.3 ;
     let StatusDetails = (expiryProgress >= Devicewidth / 2.3) ? "Expired" : expiryProgress > Devicewidth / 2.3 * 0.5 ? "Expiring Soon" : "Fresh";
-    console.log("------------------------------------");
-    console.log(StatusDetails);
     // console.log(StatusDetails);
     // console.log("------------------------------------");
     // console.log(leftDays);
@@ -92,6 +90,7 @@ const inventoryItems = ({info}) => {
         bottom: Devicewidth / 4.2,
         fontSize: 12,
         fontWeight: "200",
+        color:'black',
     }
 })
     // console.log("-------------------------------------------------------");
